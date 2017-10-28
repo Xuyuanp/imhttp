@@ -21,7 +21,7 @@ var flags = struct {
 }{}
 
 func init() {
-	flag.StringVar(&flags.frontend, "fe", ":9093", "frontend")
+	flag.StringVar(&flags.frontend, "fe", ":9091", "frontend")
 	flag.StringVar(&flags.backend, "be", "", "backend")
 	flag.Parse()
 
@@ -32,7 +32,7 @@ func init() {
 }
 
 func main() {
-	scanner := imhttp.ScanNet("tcp", ":9091")
+	scanner := imhttp.ScanNet("tcp", flags.frontend)
 	defer scanner.Close()
 	for scanner.Scan() {
 		conn := scanner.Conn()
