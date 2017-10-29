@@ -9,7 +9,6 @@ import (
 	"io/ioutil"
 	"log"
 	"net"
-	"os"
 
 	"github.com/Xuyuanp/imhttp"
 )
@@ -22,16 +21,11 @@ var flags = struct {
 }{}
 
 func init() {
-	flag.StringVar(&flags.frontend, "fe", ":443", "frontend")
+	flag.StringVar(&flags.frontend, "fe", ":443", "server listening addr (<ip>:443 is highly recomended)")
 	flag.StringVar(&flags.backend, "be", "127.0.0.1:8838", "shadowsocks-server backend")
-	flag.StringVar(&flags.certFile, "cert", "", "cert file")
-	flag.StringVar(&flags.keyFile, "key", "", "key file")
+	flag.StringVar(&flags.certFile, "cert", "/etc/certs/server.cert", "cert file")
+	flag.StringVar(&flags.keyFile, "key", "/etc/certs/server.key", "key file")
 	flag.Parse()
-
-	if flags.certFile == "" || flags.keyFile == "" {
-		flag.Usage()
-		os.Exit(0)
-	}
 }
 
 func main() {
